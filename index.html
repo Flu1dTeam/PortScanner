@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Port Scanner</title>
+        <style>
+            body {
+                font-family: "Open Sans", "Lato", "Helvetica", sans-serif;
+                margin: 6vmin 12vmin;
+                text-align: center;
+            }
+            h1 {
+                border-bottom: solid #444 1px;
+                font-size: 8vmin;
+                text-align: center;
+                padding: 0 5vmin 2vmin;
+                margin: 0;
+            }
+            h2 {
+                font-size: 4vmin;
+            }
+            #banner {
+                background-color: #ff0;
+            }
+            header {
+                background: white;
+                top: 0;
+            }
+            .portrange {
+                background-color: #0089ff;
+                border-radius: 1vmin;
+                box-shadow: 0 -4px #24a inset;
+                color: #000;
+                display: inline-block;
+                font-size: 3vmin;
+                font-weight: 700;
+                margin: 10px;
+                text-decoration: none;
+                padding: 15px 30px;
+            }
+            .portrange:hover {
+                background-color: #1af;
+                box-shadow: 0 -4px #46c inset;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Local Port Scanner</h1>
+        </header>
+        <h2>Select a range of ports to scan:</h2>
+        <h3 id="banner">This demonstration works best in Chrome</h3>
+        <a href="1024.html" class="portrange" title="&lt; 15 seconds">Ports 1-1024</a>
+        <a href="2048.html" class="portrange" title="15&ndash;25 seconds">Ports 1-2048</a>
+        <a href="4096.html" class="portrange" title="40&ndash;60 seconds">Ports 1-4096</a>
+        <a href="10000.html" class="portrange" title="4&ndash;6 minutes">Ports 1-10000</a>
+        <h2>Or check a specific port:</h2>
+        <label>Port number: <input type="number" min="0" max="65535" id="portnumber"></label>
+        <button onclick="check(document.getElementById('portnumber').value)" type="button">Check</button>
+        <h3 id="portstatus"></h3>
+        <script>
+            function check(port) {
+                var checker = document.createElement("script");
+                checker.setAttribute("onload", "document.getElementById('portstatus').innerHTML = 'Port Open'");
+                checker.setAttribute("onerror", "document.getElementById('portstatus').innerHTML = 'Port Closed'");
+                checker.setAttribute("src", "http://127.0.0.1:" + port);
+                document.body.appendChild(checker);
+            }
+
+            var ua = navigator.userAgent.toLowerCase();
+            var banner = document.getElementById("banner");
+            if (ua.indexOf("chrome") != -1) {
+                banner.remove();
+            }
+        </script>
+    </body>
+</html>
